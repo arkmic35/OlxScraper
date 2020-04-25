@@ -1,14 +1,12 @@
-package com.arkadiusz.michalak.olxscraper;
+package com.arkadiusz.michalak.olxscraper.verticle;
 
-import com.arkadiusz.michalak.olxscraper.model.ScrapingResponse;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.json.Json;
+import io.vertx.core.eventbus.DeliveryOptions;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
-import java.util.Arrays;
-
-public class ServerVerticle extends AbstractVerticle {
+public class HttpServerVerticle extends AbstractVerticle {
     private static final int PORT_NUMBER = 8080;
 
     @Override
@@ -29,16 +27,18 @@ public class ServerVerticle extends AbstractVerticle {
 
     private void getOlxOffersHandler(RoutingContext context) {
         String keyword = context.request().getParam("keyword");
+        DeliveryOptions options = new DeliveryOptions().addHeader("keyword", keyword);
 
-        ScrapingResponse response = ScrapingResponse.of(
-                Arrays.asList(
-                        ScrapingResponse.ResponseSegment.of("1", "VW Passat zdrowy", "7000 PLN"),
-                        ScrapingResponse.ResponseSegment.of("2", "VW Passat niebity igła", "8500 PLN")
-                )
-        );
+        vertx.eventBus()
+                .request("olxScrapingQueue", null, options, reply -> {
+                    if (reply.succeeded()) {
+                        JsonObject body = (JsonObject) reply.result().body();
 
-        context.response()
-                .putHeader("Content-Type", "text/json")
-                .end(Json.encodeToBuffer(response));
+                        context.response().putHeader("Content-Type", "text/json");
+                        context.response().end(String.valueOf(body));
+                    } else {
+                        context.fail(reply.cause());
+                    }
+                });
     }
 }
