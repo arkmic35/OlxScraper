@@ -1,6 +1,7 @@
 package com.arkadiusz.michalak.olxscraper;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.Router;
 
 import java.util.Random;
@@ -14,13 +15,19 @@ public class ServerVerticle extends AbstractVerticle {
     public void start() {
         Router router = Router.router(vertx);
 
-        router.route().handler(routingContext ->
-                routingContext
-                        .response()
-                        .putHeader("content-type", "text/html")
-                        .end("Hello World " + random.nextInt(10)));
+        router.route(HttpMethod.GET, "/offers/olx/:keyword")
+                .handler(routingContext -> {
+                    String keyword = routingContext.request().getParam("keyword");
 
-        vertx.createHttpServer().requestHandler(router).listen(PORT_NUMBER);
+                    routingContext
+                            .response()
+                            .putHeader("content-type", "text/json")
+                            .end("Looking for " + keyword + " in OLX.");
+                });
+
+        vertx.createHttpServer()
+                .requestHandler(router)
+                .listen(PORT_NUMBER);
 
         System.out.println("Server started on port " + PORT_NUMBER);
     }
