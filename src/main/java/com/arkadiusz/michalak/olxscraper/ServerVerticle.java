@@ -7,12 +7,9 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
 import java.util.Arrays;
-import java.util.Random;
 
 public class ServerVerticle extends AbstractVerticle {
-
-    public static final int PORT_NUMBER = 8080;
-    private final Random random = new Random();
+    private static final int PORT_NUMBER = 8080;
 
     @Override
     public void start() {
@@ -21,9 +18,13 @@ public class ServerVerticle extends AbstractVerticle {
 
         vertx.createHttpServer()
                 .requestHandler(router)
-                .listen(PORT_NUMBER);
-
-        System.out.println("Server started on port " + PORT_NUMBER);
+                .listen(PORT_NUMBER, listeningResult -> {
+                    if (listeningResult.succeeded()) {
+                        System.out.println("Server started at port " + PORT_NUMBER);
+                    } else {
+                        System.err.println("Couldn't start server at port " + PORT_NUMBER);
+                    }
+                });
     }
 
     private void getOlxOffersHandler(RoutingContext context) {
