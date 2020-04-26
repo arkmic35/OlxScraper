@@ -1,14 +1,24 @@
 package com.arkadiusz.michalak.olxscraper.verticle;
 
+import com.arkadiusz.michalak.olxscraper.model.OffersDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.AsyncResult;
+import io.vertx.core.Handler;
 import io.vertx.core.eventbus.DeliveryOptions;
-import io.vertx.core.json.JsonObject;
+import io.vertx.core.eventbus.Message;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
+@RequiredArgsConstructor
 public class HttpServerVerticle extends AbstractVerticle {
+
+    private final ObjectMapper objectMapper;
+
     private static final int PORT_NUMBER = 8080;
 
     @Override
@@ -32,12 +42,16 @@ public class HttpServerVerticle extends AbstractVerticle {
         DeliveryOptions options = new DeliveryOptions().addHeader("keyword", keyword);
 
         vertx.eventBus()
-                .request("olxScrapingQueue", null, options, reply -> {
+                .request("olxScrapingQueue", null, options, (Handler<AsyncResult<Message<OffersDto>>>) reply -> {
                     if (reply.succeeded()) {
-                        JsonObject body = (JsonObject) reply.result().body();
+                        try {
+                            OffersDto offersDto = reply.result().body();
 
-                        context.response().putHeader("Content-Type", "text/json");
-                        context.response().end(String.valueOf(body));
+                            context.response().putHeader("Content-Type", "text/json");
+                            context.response().end(objectMapper.writeValueAsString(offersDto));
+                        } catch (JsonProcessingException e) {
+                            context.fail(e);
+                        }
                     } else {
                         context.fail(reply.cause());
                     }

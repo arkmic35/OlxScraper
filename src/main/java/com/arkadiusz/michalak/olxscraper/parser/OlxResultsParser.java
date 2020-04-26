@@ -1,6 +1,6 @@
 package com.arkadiusz.michalak.olxscraper.parser;
 
-import com.arkadiusz.michalak.olxscraper.model.Offer;
+import com.arkadiusz.michalak.olxscraper.model.OffersDto;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,10 +11,10 @@ import java.util.List;
 
 public class OlxResultsParser {
 
-    public List<Offer> parse(String html) {
+    public OffersDto parse(String html) {
         Document document = Jsoup.parse(html);
         Elements elements = document.select("#offers_table > tbody > tr.wrap");
-        List<Offer> offers = new ArrayList<>(elements.size());
+        List<OffersDto.Offer> offers = new ArrayList<>(elements.size());
 
         for (Element element : elements) {
 
@@ -32,9 +32,9 @@ public class OlxResultsParser {
                     .first()
                     .html();
 
-            offers.add(Offer.of(id, name, price));
+            offers.add(OffersDto.Offer.of(id, name, price));
         }
 
-        return offers;
+        return OffersDto.of(offers);
     }
 }
