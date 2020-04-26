@@ -11,7 +11,6 @@ import com.google.inject.Provides;
 
 import javax.inject.Singleton;
 
-
 public class ComponentsModule extends PrivateModule {
 
     @Provides
