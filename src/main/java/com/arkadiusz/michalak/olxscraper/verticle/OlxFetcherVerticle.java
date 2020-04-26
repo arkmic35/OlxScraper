@@ -14,11 +14,13 @@ import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import io.vertx.ext.web.codec.BodyCodec;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
+@Log4j2
 public class OlxFetcherVerticle extends AbstractVerticle {
 
     private final BufferToStringConverter bufferToStringConverter;
@@ -33,7 +35,7 @@ public class OlxFetcherVerticle extends AbstractVerticle {
 
         startPromise.complete();
 
-        System.out.println("OlxFetcherVerticle started");
+        log.info("OlxFetcherVerticle started");
     }
 
     private void onMessage(Message<Void> message) {

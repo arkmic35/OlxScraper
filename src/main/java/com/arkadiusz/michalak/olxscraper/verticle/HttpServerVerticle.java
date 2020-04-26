@@ -5,7 +5,9 @@ import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class HttpServerVerticle extends AbstractVerticle {
     private static final int PORT_NUMBER = 8080;
 
@@ -18,9 +20,9 @@ public class HttpServerVerticle extends AbstractVerticle {
                 .requestHandler(router)
                 .listen(PORT_NUMBER, listeningResult -> {
                     if (listeningResult.succeeded()) {
-                        System.out.println("Server started at port " + PORT_NUMBER);
+                        log.info("Server started at port " + PORT_NUMBER);
                     } else {
-                        System.err.println("Couldn't start server at port " + PORT_NUMBER);
+                        log.error("Couldn't start server at port " + PORT_NUMBER);
                     }
                 });
     }

@@ -12,6 +12,8 @@ repositories {
 }
 
 dependencies {
+    compile 'org.apache.logging.log4j:log4j-api:2.13.2'
+    compile 'org.apache.logging.log4j:log4j-core:2.13.2'
     compile 'com.google.inject:guice:4.2.3'
     compile 'io.vertx:vertx-web:3.9.0'
     compile 'io.vertx:vertx-web-client:3.9.0'
