@@ -1,5 +1,8 @@
 package com.arkadiusz.michalak.olxscraper.verticle;
 
+import com.arkadiusz.michalak.olxscraper.converter.BufferToStringConverter;
+import com.arkadiusz.michalak.olxscraper.converter.OffersListToJsonObjectConverter;
+import com.arkadiusz.michalak.olxscraper.model.Offer;
 import com.arkadiusz.michalak.olxscraper.parser.OlxResultsParser;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
@@ -12,12 +15,15 @@ import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import io.vertx.ext.web.codec.BodyCodec;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
 public class OlxFetcherVerticle extends AbstractVerticle {
 
+    private final BufferToStringConverter bufferToStringConverter;
     private final OlxResultsParser olxResultsParser;
+    private final OffersListToJsonObjectConverter offersListToJsonObjectConverter;
 
     @Override
     public void start(Promise<Void> startPromise) {
@@ -35,7 +41,11 @@ public class OlxFetcherVerticle extends AbstractVerticle {
         String requestUri = String.format("/oferty/q-%s/", keyword);
 
         Function<Buffer, JsonObject> function = buffer -> {
-            throw new UnsupportedOperationException();
+
+            String html = bufferToStringConverter.convert(buffer);
+            List<Offer> offers = olxResultsParser.parse(html);
+
+            return offersListToJsonObjectConverter.convert(offers);
         };
 
         HttpRequest<JsonObject> accept = WebClient.create(vertx)

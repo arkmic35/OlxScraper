@@ -1,5 +1,7 @@
 package com.arkadiusz.michalak.olxscraper;
 
+import com.arkadiusz.michalak.olxscraper.converter.BufferToStringConverter;
+import com.arkadiusz.michalak.olxscraper.converter.OffersListToJsonObjectConverter;
 import com.arkadiusz.michalak.olxscraper.parser.OlxResultsParser;
 import com.arkadiusz.michalak.olxscraper.verticle.HttpServerVerticle;
 import com.arkadiusz.michalak.olxscraper.verticle.OlxFetcherVerticle;
@@ -23,7 +25,14 @@ public class ComponentsModule extends PrivateModule {
     @Singleton
     @Exposed
     public OlxFetcherVerticle olxFetcherVerticle() {
-        return new OlxFetcherVerticle(olxResultsParser());
+        return new OlxFetcherVerticle(bufferToStringConverter(), olxResultsParser(), offersListToJsonObjectConverter());
+    }
+
+    @Provides
+    @Singleton
+    @Exposed
+    public BufferToStringConverter bufferToStringConverter() {
+        return new BufferToStringConverter();
     }
 
     @Provides
@@ -31,6 +40,13 @@ public class ComponentsModule extends PrivateModule {
     @Exposed
     public OlxResultsParser olxResultsParser() {
         return new OlxResultsParser();
+    }
+
+    @Provides
+    @Singleton
+    @Exposed
+    public OffersListToJsonObjectConverter offersListToJsonObjectConverter() {
+        return new OffersListToJsonObjectConverter();
     }
 
     @Override
