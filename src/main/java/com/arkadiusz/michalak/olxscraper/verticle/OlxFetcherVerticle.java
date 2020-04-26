@@ -1,19 +1,23 @@
 package com.arkadiusz.michalak.olxscraper.verticle;
 
+import com.arkadiusz.michalak.olxscraper.parser.OlxResultsParser;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.eventbus.Message;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.HttpRequest;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import io.vertx.ext.web.codec.BodyCodec;
+import lombok.RequiredArgsConstructor;
 
 import java.util.function.Function;
 
+@RequiredArgsConstructor
 public class OlxFetcherVerticle extends AbstractVerticle {
+
+    private final OlxResultsParser olxResultsParser;
 
     @Override
     public void start(Promise<Void> startPromise) {
@@ -31,21 +35,7 @@ public class OlxFetcherVerticle extends AbstractVerticle {
         String requestUri = String.format("/oferty/q-%s/", keyword);
 
         Function<Buffer, JsonObject> function = buffer -> {
-            JsonArray offersArray = new JsonArray()
-                    .add(
-                            new JsonObject()
-                                    .put("id", "1")
-                                    .put("name", keyword + " dobry stan")
-                                    .put("price", "7000 PLN")
-                    )
-                    .add(
-                            new JsonObject()
-                                    .put("id", "1")
-                                    .put("name", keyword + " igła")
-                                    .put("price", "8000 PLN")
-                    );
-
-            return new JsonObject().put("offers", offersArray);
+            throw new UnsupportedOperationException();
         };
 
         HttpRequest<JsonObject> accept = WebClient.create(vertx)
