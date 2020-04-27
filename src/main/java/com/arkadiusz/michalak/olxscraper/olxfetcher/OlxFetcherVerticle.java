@@ -1,9 +1,9 @@
-package com.arkadiusz.michalak.olxscraper.verticle;
+package com.arkadiusz.michalak.olxscraper.olxfetcher;
 
-import com.arkadiusz.michalak.olxscraper.converter.BufferToStringConverter;
-import com.arkadiusz.michalak.olxscraper.model.OffersDto;
-import com.arkadiusz.michalak.olxscraper.model.OffersDtoCodec;
-import com.arkadiusz.michalak.olxscraper.parser.OlxResultsParser;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.converter.BufferToStringConverter;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.model.OffersDto;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.model.OffersDtoCodec;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.parser.OlxResultsParser;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.eventbus.Message;

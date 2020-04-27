@@ -1,4 +1,4 @@
-package com.arkadiusz.michalak.olxscraper.exception;
+package com.arkadiusz.michalak.olxscraper.olxfetcher.exception;
 
 public class ConversionException extends RuntimeException {
 

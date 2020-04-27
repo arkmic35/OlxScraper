@@ -1,6 +1,6 @@
-package com.arkadiusz.michalak.olxscraper.converter;
+package com.arkadiusz.michalak.olxscraper.olxfetcher.converter;
 
-import com.arkadiusz.michalak.olxscraper.exception.ConversionException;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.exception.ConversionException;
 import io.netty.buffer.ByteBufInputStream;
 import io.vertx.core.buffer.Buffer;
 

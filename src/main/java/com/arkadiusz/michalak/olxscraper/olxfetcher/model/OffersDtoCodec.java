@@ -1,6 +1,6 @@
-package com.arkadiusz.michalak.olxscraper.model;
+package com.arkadiusz.michalak.olxscraper.olxfetcher.model;
 
-import com.arkadiusz.michalak.olxscraper.exception.ConversionException;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.exception.ConversionException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vertx.core.buffer.Buffer;

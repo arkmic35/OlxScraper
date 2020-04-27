@@ -1,6 +1,6 @@
-package com.arkadiusz.michalak.olxscraper.parser;
+package com.arkadiusz.michalak.olxscraper.olxfetcher.parser;
 
-import com.arkadiusz.michalak.olxscraper.model.OffersDto;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.model.OffersDto;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

@@ -1,7 +1,7 @@
 package com.arkadiusz.michalak.olxscraper;
 
-import com.arkadiusz.michalak.olxscraper.verticle.HttpServerVerticle;
-import com.arkadiusz.michalak.olxscraper.verticle.OlxFetcherVerticle;
+import com.arkadiusz.michalak.olxscraper.httpserver.HttpServerVerticle;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.OlxFetcherVerticle;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;

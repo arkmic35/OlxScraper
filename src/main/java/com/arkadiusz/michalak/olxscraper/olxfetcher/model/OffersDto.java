@@ -1,4 +1,4 @@
-package com.arkadiusz.michalak.olxscraper.model;
+package com.arkadiusz.michalak.olxscraper.olxfetcher.model;
 
 import lombok.Value;
 

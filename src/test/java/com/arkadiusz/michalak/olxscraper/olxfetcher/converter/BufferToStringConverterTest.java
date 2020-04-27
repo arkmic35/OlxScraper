@@ -1,4 +1,4 @@
-package com.arkadiusz.michalak.olxscraper.converter;
+package com.arkadiusz.michalak.olxscraper.olxfetcher.converter;
 
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.buffer.impl.BufferImpl;

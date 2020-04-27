@@ -1,6 +1,6 @@
-package com.arkadiusz.michalak.olxscraper.verticle;
+package com.arkadiusz.michalak.olxscraper.httpserver;
 
-import com.arkadiusz.michalak.olxscraper.model.OffersDto;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.model.OffersDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vertx.core.AbstractVerticle;

@@ -1,10 +1,10 @@
 package com.arkadiusz.michalak.olxscraper;
 
-import com.arkadiusz.michalak.olxscraper.converter.BufferToStringConverter;
-import com.arkadiusz.michalak.olxscraper.model.OffersDtoCodec;
-import com.arkadiusz.michalak.olxscraper.parser.OlxResultsParser;
-import com.arkadiusz.michalak.olxscraper.verticle.HttpServerVerticle;
-import com.arkadiusz.michalak.olxscraper.verticle.OlxFetcherVerticle;
+import com.arkadiusz.michalak.olxscraper.httpserver.HttpServerVerticle;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.OlxFetcherVerticle;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.converter.BufferToStringConverter;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.model.OffersDtoCodec;
+import com.arkadiusz.michalak.olxscraper.olxfetcher.parser.OlxResultsParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Exposed;
 import com.google.inject.PrivateModule;
