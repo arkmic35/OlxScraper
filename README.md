@@ -17,8 +17,9 @@ Run `com.arkadiusz.michalak.olxscraper.ServerRunner.main` with JDK. Tested with 
 Default port is 8080.
 
 # Endpoint
-`/offers/olx/:keyword`
+`GET /offers/olx/:keyword`
 
+Example response:
 ```json
 {
     "offers": [
