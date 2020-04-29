@@ -16,6 +16,14 @@ Run `com.arkadiusz.michalak.olxscraper.ServerRunner.main` with JDK. Tested with 
 
 Default port is 8080.
 
+# How to run in container
+`./gradlew clean build`
+
+`docker build --tag olxscraper:latest .`
+
+`docker run -d  -p 8080:8080 olxscraper:latest`
+
+
 # Endpoint
 `GET /offers/olx/:keyword`
 
