@@ -39,6 +39,7 @@ public class HttpServerVerticle extends AbstractVerticle {
 
     private void getOlxOffersHandler(RoutingContext context) {
         String keyword = context.request().getParam("keyword");
+        log.info("GET /offers/olx/" + keyword);
         DeliveryOptions options = new DeliveryOptions().addHeader("keyword", keyword);
 
         vertx.eventBus()
@@ -49,11 +50,15 @@ public class HttpServerVerticle extends AbstractVerticle {
 
                             context.response().putHeader("Content-Type", "text/json");
                             context.response().end(objectMapper.writeValueAsString(offersDto));
+
+                            log.info("Endpoint handler finished OK");
                         } catch (JsonProcessingException e) {
                             context.fail(e);
+                            log.error("Endpoint handler failed", e);
                         }
                     } else {
                         context.fail(reply.cause());
+                        log.error("Endpoint handler failed", reply.cause());
                     }
                 });
     }
