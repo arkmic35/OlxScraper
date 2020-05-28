@@ -9,16 +9,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Exposed;
 import com.google.inject.PrivateModule;
 import com.google.inject.Provides;
+import lombok.AllArgsConstructor;
 
 import javax.inject.Singleton;
 
+@AllArgsConstructor
 public class ComponentsModule extends PrivateModule {
+    private final Profile profile;
 
     @Provides
     @Singleton
     @Exposed
     public HttpServerVerticle httpServerVerticle() {
-        return new HttpServerVerticle(objectMapper());
+        return new HttpServerVerticle(objectMapper(), profile);
     }
 
     @Provides

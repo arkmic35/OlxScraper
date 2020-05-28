@@ -12,8 +12,9 @@ import io.vertx.core.Vertx;
 public class ServerRunner {
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
+        Profile profile = Profile.DEVELOPMENT;
 
-        Injector injector = Guice.createInjector(Stage.PRODUCTION, new ComponentsModule());
+        Injector injector = Guice.createInjector(Stage.PRODUCTION, new ComponentsModule(profile));
         HttpServerVerticle httpServerVerticle = injector.getInstance(HttpServerVerticle.class);
         OlxFetcherVerticle olxFetcherVerticle = injector.getInstance(OlxFetcherVerticle.class);
 
