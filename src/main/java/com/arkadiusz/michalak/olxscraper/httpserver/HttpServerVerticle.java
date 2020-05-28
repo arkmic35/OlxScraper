@@ -30,6 +30,8 @@ public class HttpServerVerticle extends AbstractVerticle {
         Router router = Router.router(vertx);
 
         if (profile == Profile.DEVELOPMENT) {
+            log.warn("Development profile is set");
+
             router.route().handler(CorsHandler.create(".*.")
                     .allowedMethod(HttpMethod.GET)
                     .allowedHeader("Access-Control-Request-Method")
